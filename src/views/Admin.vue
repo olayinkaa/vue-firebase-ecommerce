@@ -97,6 +97,7 @@
 </template>
 
 <script>
+import {fb} from '../firebase.js'
     export default {
         name: 'admin',
         methods: {
@@ -105,6 +106,17 @@
 
                              $(".page-wrapper").toggleClass("toggled");
                          
+                },
+                logout(){
+                        fb.auth().signOut()
+                            .then(()=>{
+
+                                    this.$router.replace('/')
+                            })
+                            .catch(err=>{
+
+                                console.log(err)
+                            })
                 }
 
         }

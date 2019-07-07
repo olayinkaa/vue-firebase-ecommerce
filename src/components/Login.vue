@@ -75,7 +75,7 @@
 import {fb, db} from '../firebase.js'
 
     export default {
-        name: 'login',
+        name: 'Login',
         data(){
             return{
 
@@ -87,8 +87,30 @@ import {fb, db} from '../firebase.js'
         methods:{
 
             register(){
+                    fb.auth().createUserWithEmailAndPassword(this.email, this.password)
+                        .then(user=>{
 
+                            $('#LoginModal').modal('hide');
+
+                            this.$router.replace('admin');
+                        })
+                        .catch(error=>{
+
+                            // handling error here
+                                var errorCode = error.code;
+                                var errorMessage = error.message;
+                                if (errorCode == 'auth/weak-password') {
+                                    alert('The password is too weak.');
+                                } else {
+                                    alert(errorMessage);
+                                }
+                                console.log(error);
+                        })
                 
+            },
+            login(){
+
+
             }
         }
     }

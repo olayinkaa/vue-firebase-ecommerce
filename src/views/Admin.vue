@@ -124,5 +124,5 @@ import {fb} from '../firebase.js'
 </script>
 
 <style lang="scss" scoped>
-
+        
 </style>

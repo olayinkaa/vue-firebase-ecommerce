@@ -14,41 +14,41 @@
                             </li>
                         </ul>
                         <div class="tab-content" id="pills-tabContent">
-                        <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab"> 
-                            <h5 class="text-center">Login Please</h5>
-                            <div class="form-group">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" v-model="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="pills-login-tab"> 
+                                <h5 class="text-center">Login Please</h5>
+                                <div class="form-group">
+                                    <label for="InputEmail1">Email address</label>
+                                    <input type="email" v-model="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                    <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="InputPassword1">Password</label>
+                                    <input type="password" @keyup.enter="login" v-model="password" class="form-control" id="InputPassword1" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" @click="login">Login</button>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label>
-                                <input type="password" @keyup.enter="login" v-model="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                            </div>
-                             <div class="form-group">
-                                <button class="btn btn-primary" @click="login">Login</button>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="pills-register-tab">                     
-                            <h5 class="text-center">Create New Account</h5>     
-                            <div class="form-group">
-                                <label for="name">Your name</label>
-                                <input type="text" v-model="name" class="form-control" id="name" placeholder="Your nice name">
-                            </div>
+                            <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="pills-register-tab">                     
+                                <h5 class="text-center">Create New Account</h5>     
+                                <div class="form-group">
+                                    <label for="name">Your name</label>
+                                    <input type="text" v-model="name" class="form-control" id="name" placeholder="Your nice name">
+                                </div>
 
-                            <div class="form-group">
-                                <label for="email">Email address</label>
-                                <input type="email"  v-model="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" v-model="password" class="form-control" id="password" placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary" @click="register">Signup</button>
-                            </div>
+                                <div class="form-group">
+                                    <label for="email">Email address</label>
+                                    <input type="email"  v-model="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" v-model="password" class="form-control" id="password" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary" @click="register">Signup</button>
+                                </div>
 
-                        </div>
+                            </div>
                     </div>
                     
  
@@ -100,7 +100,22 @@ import {fb, db} from '../firebase.js'
             },
             login(){
 
-
+                fb.auth().signInWithEmailAndPassword(this.email, this.password)
+                    .then(() => {
+                        $('#login').modal('hide')
+                        this.$router.replace('admin');  
+                        })
+                    .catch(function(error) {
+                            // Handle Errors here.
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            if (errorCode === 'auth/wrong-password') {
+                                alert('Wrong password.');
+                            } else {
+                                alert(errorMessage);
+                            }
+                            console.log(error);
+                    });
             }
         }
     }

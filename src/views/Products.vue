@@ -14,6 +14,24 @@
                         </div>
                         <button type="submit" @click.prevent="saveData" class="btn btn-primary">Submit</button>
                     </div>
+                    <div class="col-md-7 mt-4">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(product,index) in productData " :key="index" >
+                                    <th scope="row">{{index+1}}</th>
+                                    <td>{{product.name}}</td>
+                                    <td>{{product.price}}</td>
+                                </tr>               
+                            </tbody>
+                        </table>
+                    </div>
                </div>
         </div>
     </div>
@@ -25,13 +43,18 @@
         name: 'products',
         data(){
             return{
-                
+                    
+                    productData:[],
                     products:{
 
                             name:null,
                             price:null
                     }
             }
+        },
+        created(){
+
+                    this.getData()
         },
         methods: {
                     saveData(){
@@ -50,6 +73,16 @@
                     reset(){
 
                         Object.assign(this.$data,this.$options.data.apply(this))
+                    },
+                    getData(){
+
+                            db.collection('products').get().then((querySnapshot)=>{
+
+                                        querySnapshot.forEach((doc)=>{
+                                            console.log(doc.data().name)
+                                            this.productData.push(doc.data())
+                                        })
+                            })
                     }
 
         }

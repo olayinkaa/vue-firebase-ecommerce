@@ -21,6 +21,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Price</th>
+                                    <th scope="col">Modify</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -28,6 +29,10 @@
                                     <th scope="row">{{index+1}}</th>
                                     <td>{{product.name}}</td>
                                     <td>{{product.price}}</td>
+                                    <td>
+                                        <a href="" class="btn btn-primary">Edit</a>
+                                        <a href="" class="btn btn-danger">Delete</a>
+                                    </td>
                                 </tr>               
                             </tbody>
                         </table>
@@ -62,7 +67,8 @@
                             db.collection('products').add(this.products)
                                 .then((docRef)=>{
 
-                                    console.log(docRef)
+                                    // console.log(docRef)
+                                    this.getData()
                                     this.reset()
                                 })
                                 .catch(err=>{

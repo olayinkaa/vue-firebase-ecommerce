@@ -102,7 +102,7 @@ import {fb, db} from '../firebase.js'
 
                 fb.auth().signInWithEmailAndPassword(this.email, this.password)
                     .then(() => {
-                        $('#login').modal('hide')
+                        $('#LoginModal').modal('hide')
                         this.$router.replace('admin');  
                         })
                     .catch(function(error) {

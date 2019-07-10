@@ -146,6 +146,7 @@
                                 .then(()=>{
 
                                     $('#editModal').modal('hide')
+                                    this.myWatcher()
                                 })
                                 .catch()
 

@@ -82,7 +82,8 @@
 
                             name:null,
                             price:null
-                    }
+                    },
+                    activeItem:null
             }
         },
         created(){
@@ -133,14 +134,30 @@
 
                             }
                     },
-                    editProduct(doc){
+                    editProduct(product){
 
                                 $('#editModal').modal('show')
-                                this.products = doc.data()
+                                this.products = product.data()
+                                this.activeItem = product.id
                     },
-                    updateProduc(){
+                    updateProduct(){
 
-                                
+                            db.collection('products').doc(this.activeItem).update(this.products)
+                                .then(()=>{
+
+                                    $('#editModal').modal('hide')
+                                })
+                                .catch()
+
+                    },
+                    myWatcher(){
+
+                            db.collection('products').onSnapshot((querySnapshot)=>{
+                                    this.products = []
+                                    querySnapshot.forEach((doc)=>{
+                                        this.products.push(doc)
+                                    })
+                            })
                     }
 
         }

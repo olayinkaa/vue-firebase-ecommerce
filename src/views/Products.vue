@@ -30,7 +30,7 @@
                                     <td>{{product.data().name}}</td>
                                     <td>{{product.data().price}}</td>
                                     <td>
-                                        <a href="" class="btn btn-primary">Edit</a>
+                                        <button @click="editProduct(product)" class="btn btn-primary">Edit</button>
                                         <a href="" @click.prevent="deleteProduct(product.id)" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>               
@@ -39,6 +39,34 @@
                     </div>
                </div>
         </div>
+
+        <!--  -->
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">EDIT PRODUCT</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="name">Product Name</label>
+                                <input type="text" class="form-control" v-model="products.name"  id="name" aria-describedby="name" >
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="text" v-model="products.price" class="form-control" id="price" >
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" @click="updateProduct()" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
     </div>
 </template>
 
@@ -104,6 +132,15 @@
                             {
 
                             }
+                    },
+                    editProduct(doc){
+
+                                $('#editModal').modal('show')
+                                this.products = doc.data()
+                    },
+                    updateProduc(){
+
+                                
                     }
 
         }

@@ -25,13 +25,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(product,index) in productData " :key="index" >
+                                <tr v-for="(product,index) in productData " :key="product.id" >
                                     <th scope="row">{{index+1}}</th>
-                                    <td>{{product.name}}</td>
-                                    <td>{{product.price}}</td>
+                                    <td>{{product.data().name}}</td>
+                                    <td>{{product.data().price}}</td>
                                     <td>
                                         <a href="" class="btn btn-primary">Edit</a>
-                                        <a href="" class="btn btn-danger">Delete</a>
+                                        <a href="" @click.prevent="deleteProduct(product.id)" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>               
                             </tbody>
@@ -85,10 +85,25 @@
                             db.collection('products').get().then((querySnapshot)=>{
 
                                         querySnapshot.forEach((doc)=>{
-                                            console.log(doc.data().name)
-                                            this.productData.push(doc.data())
+                                            // console.log(doc.data().name)
+                                            this.productData.push(doc)
                                         })
                             })
+                    },
+                    deleteProduct(id){
+
+                            if(confirm('Are you sure you want to delete this record?'))
+                            {
+                                db.collection('products').doc(id).delete()
+                                    .then(()=>{
+                                
+                                    })
+                                    .catch()
+                            }
+                            else
+                            {
+
+                            }
                     }
 
         }

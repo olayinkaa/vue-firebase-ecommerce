@@ -18,10 +18,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr v-for="product in dbproducts" :key="product.id">
                                     <th scope="row"></th>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{product.name}}</td>
+                                    <td>{{product.price}}</td>
                                     <td>
                                         <button @click="editProduct()" class="btn btn-primary">Edit</button>
                                         <button @click="deleteProduct()" class="btn btn-danger">Delete</button>
@@ -122,6 +122,7 @@
                             //         description: this.products.description,
                             // })
                             this.$firestore.dbproducts.add(this.product)
+                            $('#ProductModal').modal('hide');
 
 
                     },

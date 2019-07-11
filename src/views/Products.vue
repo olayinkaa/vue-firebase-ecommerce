@@ -1,12 +1,19 @@
 <template>
     <div class="products">
         <div class="container">
-              
-               <div class="row">
-                    <div class="col-md-7">
-                        <h2 class="product-head mb-4 pl-4 d-inline-block">product</h2>
-                        <button class="btn btn-primary float-right" @click="addNew()">Add Product</button>
-                     </div>
+                <h2 class="product-head mb-4 pl-4">product</h2>
+               <div class="row pl-4">
+                   <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" v-model="products.name"  id="name" aria-describedby="name" >
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input type="text" v-model="products.price" class="form-control" id="price" >
+                        </div>
+                        <button type="submit" @click.prevent="saveData" class="btn btn-primary">Submit</button>
+                    </div>
                     <div class="col-md-7 mt-4">
                         <table class="table table-hover">
                             <thead>
@@ -34,8 +41,8 @@
         </div>
 
         <!--  -->
-                <div class="modal fade" id="ProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
+                <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
                         <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">EDIT PRODUCT</h5>
@@ -44,32 +51,14 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                           <div class="row">
-                               <div class="col-md-7">
-                                   <div class="form-group">
-                                        <label for="name">Product Name</label>
-                                        <input type="text" class="form-control" v-model="products.name"  id="name" aria-describedby="name" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="price">Product Description</label>
-                                        <textarea class="form-control" id="description" rows="3"></textarea>
-                                    </div>
-                               </div>
-                                <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="name">Product Price</label>
-                                            <input type="text" class="form-control" v-model="products.name"  id="name" aria-describedby="name" >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="price">Price Tags</label>
-                                            <input type="text" v-model="products.price" class="form-control" id="price" >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlFile1">Product Images</label>
-                                            <input type="file" class="form-control-file" id="product_image">
-                                        </div>
-                                </div>
-                           </div>
+                            <div class="form-group">
+                                <label for="name">Product Name</label>
+                                <input type="text" class="form-control" v-model="products.name"  id="name" aria-describedby="name" >
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Price</label>
+                                <input type="text" v-model="products.price" class="form-control" id="price" >
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -102,10 +91,6 @@
                     this.getData()
         },
         methods: {
-                    addNew(){
-
-                            $('#ProductModal').modal('show')
-                    },
                     saveData(){
 
                             db.collection('products').add(this.products)
@@ -160,7 +145,7 @@
                             db.collection('products').onSnapshot(querySnapshot=>{
                                     this.productData = []
                                     querySnapshot.forEach(doc=>{
-                                        this.productData.push(doc)
+                                        this.products.push(doc)
                                     })
                             })
                     },

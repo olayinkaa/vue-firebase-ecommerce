@@ -24,7 +24,7 @@
                                     <td>{{product.price}}</td>
                                     <td>
                                         <button @click="editProduct()" class="btn btn-primary">Edit</button>
-                                        <button @click="deleteProduct()" class="btn btn-danger">Delete</button>
+                                        <button @click="deleteProduct(product)" class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>               
                             </tbody>
@@ -122,6 +122,10 @@
                             //         description: this.products.description,
                             // })
                             this.$firestore.dbproducts.add(this.product)
+                            Toast.fire({
+                                type: 'success',
+                                title: 'Record added successfully'
+                            })
                             $('#ProductModal').modal('hide');
 
 
@@ -130,7 +134,30 @@
 
                         
                     },
-                    deleteProduct(id){
+                    deleteProduct(product){
+
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!'
+                            }).then((result) => {
+                            if (result.value)
+                            {
+
+                                this.$firestore.dbproducts.doc(product['.key']).delete()
+
+                                Swal.fire(
+                                'Deleted!',
+                                'Your record has been deleted.',
+                                'success'
+                                )
+                            }
+
+                        })
 
                     },
                     editProduct(product){

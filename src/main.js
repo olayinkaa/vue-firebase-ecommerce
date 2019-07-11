@@ -7,10 +7,27 @@ import "popper.js";
 import bootstrap from "bootstrap";
 import "./assets/app.scss";
 
+// firestore---------------------------------------
 import { fb } from "./firebase";
 import VueFirestore from "vue-firestore";
 
 Vue.use(VueFirestore);
+
+// sweetalert--------------------------------------
+
+import Swal from 'sweetalert2';
+
+window.Swal = Swal;
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+
+window.Toast = Toast;
+
 
 window.$ = window.jQuery = jQuery;
 

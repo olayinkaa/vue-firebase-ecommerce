@@ -13,6 +13,7 @@
     "firebase": "^6.2.4",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
+    "sweetalert2": "^8.13.4",
     "vue": "^2.6.10",
     "vue-firestore": "^0.3.22",
     "vue-router": "^3.0.3"

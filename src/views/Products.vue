@@ -23,7 +23,7 @@
                                     <td>{{product.name}}</td>
                                     <td>{{product.price}}</td>
                                     <td>
-                                        <button @click="editProduct()" class="btn btn-primary">Edit</button>
+                                        <button @click="editProduct(product)" class="btn btn-primary">Edit</button>
                                         <button @click="deleteProduct(product)" class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>               
@@ -73,7 +73,8 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" @click="addProduct()" class="btn btn-primary">Save changes</button>
+                            <button type="button" @click="addProduct()" class="btn btn-primary" v-if="modal =='add' ">Save changes</button>
+                            <button type="button" @click="updateProduct()" class="btn btn-primary" v-if="modal=='edit'">Apply changes</button>
                         </div>
                         </div>
                     </div>
@@ -97,7 +98,8 @@
                             tags:null,
                             image:null
                     },
-                    activeItem:null
+                    activeItem:null,
+                    modal:null
             }
         },
         created(){
@@ -113,7 +115,9 @@
         methods: {
                     addNew(){
 
+                            this.modal = 'add'
                             $('#ProductModal').modal('show')
+
                     },
                     addProduct(){
 
@@ -130,10 +134,6 @@
 
 
                     },
-                    getData(){
-
-                        
-                    },
                     deleteProduct(product){
 
                         Swal.fire({
@@ -148,7 +148,7 @@
                             if (result.value)
                             {
 
-                                this.$firestore.dbproducts.doc(product['.key']).delete()
+                                this.$firestore.dbproducts.doc(product.id).delete()
 
                                 Swal.fire(
                                 'Deleted!',
@@ -161,6 +161,12 @@
 
                     },
                     editProduct(product){
+                        this.modal = 'edit'
+                        this.product = product
+                        $('#ProductModal').modal('show')
+                        this.activeItem = product.id
+                        // this.activeItem = product['.key']
+                        // console.log(this.activeItem)
 
                              
                     },
@@ -175,7 +181,12 @@
                     },
                     updateProduct(){
 
-                           
+                           this.$firestore.dbproducts.doc(this.activeItem).update(this.product)
+                           Toast.fire({
+                                type: 'success',
+                                title: 'Record Updated successfully'
+                            })
+                            $('#ProductModal').modal('hide');
                     }
                   
 

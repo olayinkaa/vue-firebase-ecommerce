@@ -11,23 +11,29 @@ import "./assets/app.scss";
 import { fb } from "./firebase";
 import VueFirestore from "vue-firestore";
 
+Vue.use(VueFirestore, {
+  key: "id", // the name of the property. Default is '.key'.
+  enumerable: true //  whether it is enumerable or not. Default is true.
+});
+
 Vue.use(VueFirestore);
+
+
 
 // sweetalert--------------------------------------
 
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 window.Swal = Swal;
 
 const Toast = Swal.mixin({
   toast: true,
-  position: 'top-end',
+  position: "top-end",
   showConfirmButton: false,
   timer: 3000
 });
 
 window.Toast = Toast;
-
 
 window.$ = window.jQuery = jQuery;
 

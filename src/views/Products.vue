@@ -18,13 +18,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(product,index) in productData " :key="product.id" >
-                                    <th scope="row">{{index+1}}</th>
-                                    <td>{{product.data().name}}</td>
-                                    <td>{{product.data().price}}</td>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td></td>
+                                    <td></td>
                                     <td>
-                                        <button @click="editProduct(product)" class="btn btn-primary">Edit</button>
-                                        <a href="" @click.prevent="deleteProduct(product.id)" class="btn btn-danger">Delete</a>
+                                        <button @click="editProduct()" class="btn btn-primary">Edit</button>
+                                        <button @click="deleteProduct()" class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>               
                             </tbody>
@@ -48,21 +48,21 @@
                                <div class="col-md-7">
                                    <div class="form-group">
                                         <label for="name">Product Name</label>
-                                        <input type="text" class="form-control" v-model="products.name"  id="name" aria-describedby="name" >
+                                        <input type="text" class="form-control" v-model="product.name"  id="name" aria-describedby="name" >
                                     </div>
                                     <div class="form-group">
-                                        <label for="price">Product Description</label>
-                                        <textarea class="form-control" id="description" rows="3"></textarea>
+                                        <label for="description">Product Description</label>
+                                        <textarea class="form-control" v-model="product.description" id="description" rows="3"></textarea>
                                     </div>
                                </div>
                                <div class="col-md-5">
                                     <div class="form-group">
                                         <label for="name">Product Price</label>
-                                        <input type="text" class="form-control" v-model="products.name"  id="name" aria-describedby="name" >
+                                        <input type="text" class="form-control" v-model="product.price"  id="price" aria-describedby="price" >
                                     </div>
                                     <div class="form-group">
-                                        <label for="price">Price</label>
-                                        <input type="text" v-model="products.price" class="form-control" id="price" >
+                                        <label for="price">Price Tags</label>
+                                        <input type="text" v-model="product.tags" class="form-control" id="tags" >
                                     </div>
                                       <div class="form-group">
                                         <label for="product_image">Product Image</label>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" @click="updateProduct()" class="btn btn-primary">Save changes</button>
+                            <button type="button" @click="addProduct()" class="btn btn-primary">Save changes</button>
                         </div>
                         </div>
                     </div>
@@ -88,72 +88,53 @@
         data(){
             return{
                     
-                    productData:[],
-                    products:{
+                    products:[],
+                    product:{
 
                             name:null,
-                            price:null
+                            description:null,
+                            price:null,
+                            tags:null,
+                            image:null
                     },
                     activeItem:null
             }
         },
         created(){
 
-                    this.getData()
+        },
+         firestore(){
+
+                return {
+
+                        dbproducts: db.collection('products'),
+                }
         },
         methods: {
                     addNew(){
 
                             $('#ProductModal').modal('show')
                     },
-                    saveData(){
+                    addProduct(){
 
-                            db.collection('products').add(this.products)
-                                .then((docRef)=>{
+                            // this.$firestore.products.add({
+                            //         name: this.products.name,
+                            //         description: this.products.description,
+                            // })
+                            this.$firestore.dbproducts.add(this.product)
 
-                                    // console.log(docRef)
-                                    this.getData()
-                                    this.reset()
-                                })
-                                .catch(err=>{
 
-                                    console.log(err)
-                                })
-                    },
-                    reset(){
-
-                        Object.assign(this.$data,this.$options.data.apply(this))
                     },
                     getData(){
 
-                            db.collection('products').get().then((querySnapshot)=>{
-
-                                        querySnapshot.forEach((doc)=>{
-                                            // console.log(doc.data().name)
-                                            this.productData.push(doc)
-                                        })
-                            })
+                        
                     },
                     deleteProduct(id){
 
-                            if(confirm('Are you sure you want to delete this record?'))
-                            {
-                                db.collection('products').doc(id).delete()
-                                    .then(()=>{
-                                
-                                    })
-                                    .catch()
-                            }
-                            else
-                            {
-
-                            }
                     },
                     editProduct(product){
 
-                                $('#editModal').modal('show')
-                                this.products = product.data()
-                                this.activeItem = product.id
+                             
                     },
                       myWatcher(){
 
@@ -166,14 +147,7 @@
                     },
                     updateProduct(){
 
-                            db.collection('products').doc(this.activeItem).update(this.products)
-                                .then(()=>{
-
-                                    $('#editModal').modal('hide')
-                                    this.myWatcher()
-                                })
-                                .catch()
-
+                           
                     }
                   
 

@@ -55,20 +55,16 @@
                                         <textarea class="form-control" id="description" rows="3"></textarea>
                                     </div>
                                </div>
-                                <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="name">Product Price</label>
-                                            <input type="text" class="form-control" v-model="products.name"  id="name" aria-describedby="name" >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="price">Price Tags</label>
-                                            <input type="text" v-model="products.price" class="form-control" id="price" >
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleFormControlFile1">Product Images</label>
-                                            <input type="file" class="form-control-file" id="product_image">
-                                        </div>
-                                </div>
+                               <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="name">Product Price</label>
+                                        <input type="text" class="form-control" v-model="products.name"  id="name" aria-describedby="name" >
+                                    </div>
+                                    <label class="form-group">
+                                        <label for="price">Price</label>
+                                        <input type="text" v-model="products.price" class="form-control" id="price" >
+                                    </div>
+                               </div>
                            </div>
                         </div>
                         <div class="modal-footer">

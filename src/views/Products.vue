@@ -60,11 +60,15 @@
                                         <label for="name">Product Price</label>
                                         <input type="text" class="form-control" v-model="products.name"  id="name" aria-describedby="name" >
                                     </div>
-                                    <label class="form-group">
+                                    <div class="form-group">
                                         <label for="price">Price</label>
                                         <input type="text" v-model="products.price" class="form-control" id="price" >
                                     </div>
-                               </div>
+                                      <div class="form-group">
+                                        <label for="product_image">Product Image</label>
+                                        <input type="file" class="form-control-file" id="product_image">
+                                    </div>
+                                </div>
                            </div>
                         </div>
                         <div class="modal-footer">

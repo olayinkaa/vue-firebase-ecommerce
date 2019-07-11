@@ -140,6 +140,15 @@
                                 this.products = product.data()
                                 this.activeItem = product.id
                     },
+                      myWatcher(){
+
+                            db.collection('products').onSnapshot(querySnapshot=>{
+                                    this.productData = []
+                                    querySnapshot.forEach(doc=>{
+                                        this.productData.push(doc)
+                                    })
+                            })
+                    },
                     updateProduct(){
 
                             db.collection('products').doc(this.activeItem).update(this.products)
@@ -150,16 +159,8 @@
                                 })
                                 .catch()
 
-                    },
-                    myWatcher(){
-
-                            db.collection('products').onSnapshot((querySnapshot)=>{
-                                    this.products = []
-                                    querySnapshot.forEach((doc)=>{
-                                        this.products.push(doc)
-                                    })
-                            })
                     }
+                  
 
         }
     }

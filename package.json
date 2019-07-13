@@ -16,7 +16,8 @@
     "sweetalert2": "^8.13.4",
     "vue": "^2.6.10",
     "vue-firestore": "^0.3.22",
-    "vue-router": "^3.0.3"
+    "vue-router": "^3.0.3",
+    "vue2-editor": "^2.9.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",

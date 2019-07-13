@@ -8,7 +8,7 @@ const firebaseConfig = {
   authDomain: "vuefire-ecommerce.firebaseapp.com",
   databaseURL: "https://vuefire-ecommerce.firebaseio.com",
   projectId: "vuefire-ecommerce",
-  storageBucket: "",
+  storageBucket: "vuefire-ecommerce.appspot.com",
   messagingSenderId: "767464492528",
   appId: "1:767464492528:web:5566365f32158f98"
 };

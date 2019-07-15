@@ -81,6 +81,10 @@ import {fb, db} from '../firebase.js'
                         .then(user=>{
 
                             $('#LoginModal').modal('hide');
+                           
+                            db.collection("profiles").doc(user.user.uid).set({
+                                    name: this.name
+                             })
 
                             this.$router.replace('admin');
                         })

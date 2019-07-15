@@ -19,8 +19,9 @@
                         <img class="img-responsive img-rounded" src="/img/user.png" alt="User picture">
                     </div>
                     <div class="user-info">
-                        <span class="user-name">Jhon
-                            <strong>Smith</strong>
+                        <span class="user-name">
+                            {{CurrentUser.email}}
+                            <!-- <strong>Smith</strong> -->
                         </span>
                         <span class="user-role"> </span>
                         <span class="user-status">
@@ -69,7 +70,7 @@
                         </li>
 
                         <li>
-                            <router-link to="/admin/profile">
+                            <router-link :to="{name:'profile'}">
                                 <i class="fa fa-user"></i>
                                 <span>Profile</span>
                             </router-link>
@@ -100,6 +101,15 @@
 import {fb} from '../firebase.js'
     export default {
         name: 'admin',
+        data(){
+            return{
+
+                    CurrentUser:{
+                        name: null,
+                        email:null
+                    }
+            }
+        },
         methods: {
 
                 closeMenu(){
@@ -119,7 +129,19 @@ import {fb} from '../firebase.js'
                             })
                 }
 
+        },
+        created(){
+
+                    var user = fb.auth().currentUser;
+
+                    this.CurrentUser.email = user.email
         }
+
+
+
+
+
+
     }
 </script>
 

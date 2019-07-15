@@ -268,10 +268,9 @@
                         this.activeItem = product.id
                         // this.activeItem = product['.key']
                         // console.log(this.activeItem)
-
-                             
+                            
                     },
-                      myWatcher(){
+                    myWatcher(){
 
                             db.collection('products').onSnapshot(querySnapshot=>{
                                     this.productData = []

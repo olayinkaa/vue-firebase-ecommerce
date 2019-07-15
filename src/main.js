@@ -18,7 +18,10 @@ Vue.use(VueFirestore, {
 
 Vue.use(VueFirestore);
 
+// eslint-disable-next-line prettier/prettier
 
+import VueCarousel from "vue-carousel";
+Vue.use(VueCarousel);
 
 // sweetalert--------------------------------------
 
@@ -40,6 +43,7 @@ window.$ = window.jQuery = jQuery;
 Vue.config.productionTip = false;
 
 // Vue.component('Navbar', require('./components/Navbar.vue').default);
+Vue.component("products-list", require("./sections/ProductList.vue").default);
 
 let app = "";
 

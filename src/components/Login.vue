@@ -65,7 +65,7 @@
 import {fb, db} from '../firebase.js'
 
     export default {
-        name: 'Login',
+        name: 'login',
         data(){
             return{
 

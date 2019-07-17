@@ -135,7 +135,6 @@
                     modal:null,
                     tag:null,
                     progress:0,
-                    progressShow: false
             }
         },
         created(){

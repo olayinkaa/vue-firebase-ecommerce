@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <!-- <login></login> -->
+      <Login></Login>
 
       <!-- <mini-cart></mini-cart> -->
 
@@ -41,6 +41,7 @@ export default {
             Products,
             Login,
             Navbar
+           
   }
 };
 

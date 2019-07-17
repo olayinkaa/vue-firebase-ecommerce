@@ -47,6 +47,7 @@ Vue.component("products-list", require("./sections/ProductList.vue").default);
 
 let app = "";
 
+
 fb.auth().onAuthStateChanged(function(user) {
   if (!app) {
     new Vue({
